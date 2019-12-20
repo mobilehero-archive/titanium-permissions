@@ -1,0 +1,57 @@
+{
+	"name": "@titanium/permissions",
+	"version": "0.0.1",
+	"description": "Titanium native mobile widget for permission requests",
+	"keywords": [
+		"permissions",
+		"titanium",
+		"mobile",
+		"axway",
+		"turbo",
+		"ios",
+		"android",
+		"native",
+		"appcelerator",
+		"brenton-house"
+	],
+	"author": {
+		"name": "Brenton House",
+		"email": "brenton.house@gmail.com",
+		"url": "https://brenton.house"
+	},
+	"maintainers": [
+		{
+			"name": "Brenton House",
+			"email": "brenton.house@gmail.com",
+			"url": "https://brenton.house"
+		}
+	],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "github:brentonhouse/titanium-permissions"
+	},
+	"dependencies": {
+		"@titanium/errors": "0.0.1"
+	},
+	"devDependencies": {
+		"@titanium/eslint-config": "0.0.11",
+		"eslint": "^6.7.2",
+		"lodash": "^4.17.15"
+	},
+	"peerDependencies": {
+		"@titanium/errors": "^0.0.1"
+	},
+	"main": "./permissions.js",
+	"scripts": {
+		"test": "npm install --ignore-scripts && npm run list-files",
+		"list": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
+		"prepublishOnly": "git pull && bump"
+	},
+	"titanium": {
+		"type": "widget",
+		"widgetDir": "./widget",
+		"widgetId": "@titanium/permissions",
+		"platforms": "ios,android"
+	}
+}

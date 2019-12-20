@@ -1,0 +1,24 @@
+<Alloy>
+
+	<script>
+		console.debug( '🦖  You are here → inside permission-music' );
+	</script>
+	<Window id="permission-music" backgroundColor="#2e3f47" layout="composite">
+		<View width="90%" layout="vertical" height="size">
+
+			<AnimationView id="view_lottie" module="@titanium/lottie" file="~/animations/lottie-music.json" loop="true" autoStart="true" width="turbo.device.WIDTH_50" height="turbo.device.WIDTH_50" top="0" />
+
+			<Label text="Music Library" class="permission-title" />
+
+			<Label text="Could we have permission to use your music library in order to enable some cool features for this app?" class="permission-ask" />
+
+			<Label class="permission-go" onClick="turbo.permissions.music.prompt" />
+
+			<Label class="permission-later" onClick="turbo.permissions.music.ignore" />
+
+		</View>
+
+	</Window>
+
+
+</Alloy>
