@@ -6,9 +6,9 @@
 	<Window id="permission-camera" backgroundColor="#2e3f47" layout="composite">
 		<View width="90%" layout="vertical" height="size">
 
-			<AnimationView id="view_lottie" module="@titanium/lottie" file="~/animations/lottie-camera.json" loop="true" autoStart="true" width="turbo..WIDTH_50" height="turbo..WIDTH_50" top="0" platform="ios" />
+			<AnimationView id="view_lottie" module="@titanium/lottie" file="~/animations/lottie-camera.json" loop="true" autoStart="true" width="turbo.WIDTH_50" height="turbo.WIDTH_50" top="0" platform="ios" />
 			
-			<ImageView image="~/animations/lottie-camera.png" width="turbo..WIDTH_50" height="turbo..WIDTH_50" top="0" platform="android" />
+			<ImageView image="~/animations/lottie-camera.png" width="turbo.WIDTH_50" height="turbo.WIDTH_50" top="0" platform="android" />
 
 			<Label text="Camera" class="permission-title" />
 
