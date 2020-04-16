@@ -1,26 +1,56 @@
-<Alloy>
+<alloy>
 
 	<script>
 		console.debug( '🦖  You are here → inside permission-photos' );
 	</script>
-	<Window id="permission-photos" backgroundColor="#2e3f47" layout="composite">
-		<View width="90%" layout="vertical" height="size">
 
-			<AnimationView id="view_lottie" module="@titanium/lottie" file="~/animations/lottie-photos.json" loop="true" autoStart="true" width="turbo.WIDTH_50" height="turbo.WIDTH_50" top="0" platform="ios" />
-			
-			<ImageView image="/animations/lottie-photos.png" width="turbo.WIDTH_50" height="turbo.WIDTH_50" top="0" platform="android" />
+	<style src="../styles/app.tss">
+		".permission-title": {
+			"text": "Photo Library"
+		}
 
-			<Label text="Photo Library" class="permission-title" />
+		".permission-lottie": {
+			file: "~/animations/lottie-photos.json",
+				width: turbo.WIDTH_50,
+				height: turbo.WIDTH_50,
+				loop: true,
+				autoStart: true,
+				top: 0
+		}
 
-			<Label text="Could we have permission to access your photo library in order to enable some cool features for this app?" class="permission-ask" />
+		".permission-image": {
+			image: "~/animations/lottie-photos.png",
+				width: turbo.WIDTH_50,
+				height: turbo.WIDTH_50,
+				loop: true,
+				autoStart: true,
+				top: 0
+		}
 
-			<Label class="permission-go" onClick="turbo.permissions.photos.prompt" />
+		".permission-ask": {
+			"text": "Could we have permission to access your photo library in order to enable some cool features for this app?"
+		}
+	</style>
 
-			<Label class="permission-later" onClick="turbo.permissions.photos.ignore" />
+	<window id="permission-photos" backgroundColor="#2e3f47" layout="composite">
 
-		</View>
+		<vertical width="90%">
 
-	</Window>
+			<animation-view id="permission-photos-lottie" module="@titanium/lottie" platform="ios" />
+
+			<image id="permission-photos-image" class="permission-image" platform="android" />
+
+			<label id="permission-photos-title" text="Photo Library" class="permission-title" />
+
+			<label id="permission-photos-ask" class="permission-ask" />
+
+			<label id="permission-photos-go" class="permission-go" onClick="turbo.permissions.photos.prompt" />
+
+			<label id="permission-photos-later" class="permission-later" onClick="turbo.permissions.photos.ignore" />
+
+		</vertical>
+
+	</window>
 
 
-</Alloy>
+</alloy>

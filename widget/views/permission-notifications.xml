@@ -1,24 +1,45 @@
-<Alloy>
+<alloy>
 
 	<script>
 		console.debug( '🦖  You are here → inside permission-notifications' );
 	</script>
-	<Window id="permission-notifications" backgroundColor="#2e3f47" layout="composite">
-		<View width="90%" layout="vertical" height="size">
 
-			<AnimationView id="view_lottie" module="@titanium/lottie" file="~/animations/lottie-notifications.json" loop="true" autoStart="true" width="turbo.WIDTH_50" height="turbo.WIDTH_50" top="0" platform="ios" />
+	<style src="../styles/app.tss">
+		".permission-title": {
+			"text": "Notifications"
+		}
 
-			<Label text="Notifications" class="permission-title" />
+		".permission-lottie": {
+			file: "~/animations/lottie-notifications.json",
+				width: turbo.WIDTH_50,
+				height: turbo.WIDTH_50,
+				loop: true,
+				autoStart: true,
+				top: 0
+		}
 
-			<Label text="Could we have permission to send you notifications in order to enable some cool features for this app?" class="permission-ask" />
+		".permission-ask": {
+			"text": "Could we have permission to send you notifications in order to enable some cool features for this app?"
+		}
+	</style>
 
-			<Label class="permission-go" onClick="turbo.permissions.notifications.prompt" />
+	<window id="permission-notifications" backgroundColor="#2e3f47" layout="composite">
 
-			<Label class="permission-later" onClick="turbo.permissions.notifications.ignore" />
+		<vertical width="90%">
 
-		</View>
+			<animation-view id="permission-notifications-lottie" module="@titanium/lottie" platform="ios" />
 
-	</Window>
+			<label id="permission-notifications-title" class="permission-title" />
+
+			<label id="permission-notifications-ask" class="permission-ask" />
+
+			<label id="permission-notifications-go" class="permission-go" onClick="turbo.permissions.notifications.prompt" />
+
+			<label id="permission-notifications-later" class="permission-later" onClick="turbo.permissions.notifications.ignore" />
+
+		</vertical>
+
+	</window>
 
 
-</Alloy>
+</alloy>

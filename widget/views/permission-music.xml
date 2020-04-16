@@ -1,24 +1,44 @@
-<Alloy>
+<alloy>
 
 	<script>
 		console.debug( '🦖  You are here → inside permission-music' );
 	</script>
-	<Window id="permission-music" backgroundColor="#2e3f47" layout="composite">
-		<View width="90%" layout="vertical" height="size">
 
-			<AnimationView id="view_lottie" module="@titanium/lottie" file="~/animations/lottie-music.json" loop="true" autoStart="true" width="turbo.WIDTH_50" height="turbo.WIDTH_50" top="0" />
+	<style src="../styles/app.tss">
+		".permission-title": {
+			"text": "Music Library"
+		}
 
-			<Label text="Music Library" class="permission-title" />
+		".permission-lottie": {
+			file: "~/animations/lottie-music.json",
+				width: turbo.WIDTH_50,
+				height: turbo.WIDTH_50,
+				loop: true,
+				autoStart: true,
+				top: 0
+		}
 
-			<Label text="Could we have permission to use your music library in order to enable some cool features for this app?" class="permission-ask" />
+		".permission-ask": {
+			"text": "Could we have permission to use your music library in order to enable some cool features for this app?"
+		}
+	</style>
 
-			<Label class="permission-go" onClick="turbo.permissions.music.prompt" />
+	<window id="permission-music" backgroundColor="#2e3f47" layout="composite">
 
-			<Label class="permission-later" onClick="turbo.permissions.music.ignore" />
+		<vertical width="90%">
 
-		</View>
+			<animation-view id="permission-music-lottie" module="@titanium/lottie" />
 
-	</Window>
+			<label id="permission-music-title" class="permission-title" />
 
+			<label id="permission-music-ask" class="permission-ask" />
 
-</Alloy>
+			<label id="permission-music-go" class="permission-go" onClick="turbo.permissions.music.prompt" />
+
+			<label id="permission-music-later" class="permission-later" onClick="turbo.permissions.music.ignore" />
+
+		</vertical>
+
+	</window>
+
+</alloy>

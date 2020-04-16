@@ -1,0 +1,59 @@
+
+
+
+".permission-go": {
+	"backgroundColor": "#c23838",
+	"borderRadius": "15",
+	"color": "white",
+	"height": 55,
+	"text": "Great! Let's do it!",
+	"textAlign": "center",
+	"font": {
+		"fontSize": 20,
+		"fontFamily": "SFProDisplay-Semibold"
+	},
+	"top": 75,
+	"width": "75%"
+
+},
+
+".permission-later": {
+	"color": "white",
+	"height": Ti.UI.SIZE,
+	"text": "No, maybe later",
+	"textAlign": "center",
+	"font": {
+		"fontSize": "17",
+		"fontFamily": "SFProText-Normal"
+	},
+	"top": 30,
+	"width": "70%"
+
+},
+
+".permission-ask": {
+	"color": "white",
+	"height": Ti.UI.SIZE,
+	"textAlign": "center",
+	"font": {
+		"fontSize": 18,
+		"fontFamily": "SFProText-Light"
+	},
+	"top": 30,
+	"width": "80%"
+
+},
+
+".permission-title": {
+	"color": "white",
+	"height": Ti.UI.SIZE,
+	"textAlign": "center",
+	"font": {
+		"fontSize": "30",
+		"fontFamily": "SFProText-Bold",
+		"fontWeight": "bold"
+	},
+	"top": 50,
+	"width": "80%",
+
+},

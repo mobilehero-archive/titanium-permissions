@@ -1,18 +1,13 @@
-<a href="#titaniumpermissions">
-	<p align="center">
-		<img src="https://cdn.secure-api.org/images/warning-sign-area51.png" width="80%" />
-		<img src="https://cdn.secure-api.org/images/border-line-3.png" width="70%" height="50" />
-	</p>
-</a>
-
-
 # @titanium/permissions
 
 [![@titanium/permissions](https://img.shields.io/npm/v/@titanium/permissions.png)](https://www.npmjs.com/package/@titanium/permissions)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=brentonhouse/titanium-permissions)](https://dependabot.com)
 
 * [📝 Description](#-description)
+* [🚨 Notice](#-notice)
 * [✨ Features](#-features)
+	* [Prompts for device permissions](#prompts-for-device-permissions)
+	* [Styling](#styling)
 * [🚀 Getting Started](#-getting-started)
 	* [Installing](#installing)
 	* [Usage](#usage)
@@ -27,9 +22,51 @@
 
 For use with requesting native device permissions on iOS and Android
 
+## 🚨 Notice
+
+> ~~There are 7 identical style files that are included in the `./styles` directory.  The reason for this is there are issues with how TSS stylesheets are loaded from widgets in Alloy and it does not currently support the concept of a widget-wide `app.tss` file.   Any changes done to one file will need to be replicated in all the other files.  Sorry about this and hopefully I can create a workaround for this in a future version of `Turbo`.~~
+> 
+> ~~https://jira.appcelerator.org/browse/TIMOB-19971~~
+
+
+I am pleased to say that the latest version of Titanium Turbo now has support for `app.tss` (albeit in an unusual way...).  A feature was added to `Turbo` that allows you to add a `style` tag to your XML view which in turn, supports the `src` tag (not unlike the `script` tag).  
+
+Take a look at the implementation to see how `app.tss` is used to support widget-wide styles (and more!)
+
 ## ✨ Features
 
-* [X] Initial beta release
+### Prompts for device permissions
+
+
+* [X] Permissions for Camera
+* [X] Permissions for Location
+* [X] Permissions for Microphone
+* [X] Permissions for Notifications
+* [X] Permissions for Photos
+* [X] Permissions for Music
+
+### Styling
+
+You can override the styling for any control using the ID of the control.
+
+IDs follow the pattern `permission-{feature}-{control}` 
+
+Controls used are:  
+
+- lottie (iOS)
+- image (Android)
+- title
+- ask
+- go
+- later
+
+i.e.
+
+```css
+"#permission-camera-title": {
+	"color": "blue"
+},
+```
 
 
 ## 🚀 Getting Started
