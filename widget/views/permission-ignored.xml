@@ -1,8 +1,6 @@
 <Alloy>
 
-	<script>
-		console.debug( '🦖  You are here → inside permission-ignored' );
-	</script>
+	<script static="true" src="./@titanium/permissions/base.js" />
 
 	<style src="../styles/app.tss">
 		".permission-title": {
@@ -41,9 +39,9 @@
 
 			<Label id="permission-ignored-ask" class="permission-ask" />
 
-			<Label id="permission-ignored-go" class="permission-go" onClick="turbo.permissions[$.args.permission].reject" />
+			<Label id="permission-ignored-go" class="permission-go" onClick="permissions[$.args.permission].reject" />
 
-			<Label id="permission-ignored-later" class="permission-later" onClick="turbo.permissions[$.args.permission].please" />
+			<Label id="permission-ignored-later" class="permission-later" onClick="permissions[$.args.permission].please" />
 
 		</View>
 

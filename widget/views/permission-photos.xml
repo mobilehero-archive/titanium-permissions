@@ -1,8 +1,6 @@
 <alloy>
 
-	<script>
-		console.debug( '🦖  You are here → inside permission-photos' );
-	</script>
+	<script static="true" src="./@titanium/permissions/base.js" />
 
 	<style src="../styles/app.tss">
 		".permission-title": {
@@ -44,9 +42,9 @@
 
 			<label id="permission-photos-ask" class="permission-ask" />
 
-			<label id="permission-photos-go" class="permission-go" onClick="turbo.permissions.photos.prompt" />
+			<label id="permission-photos-go" class="permission-go" onClick="permissions.photos.prompt" />
 
-			<label id="permission-photos-later" class="permission-later" onClick="turbo.permissions.photos.ignore" />
+			<label id="permission-photos-later" class="permission-later" onClick="permissions.photos.ignore" />
 
 		</vertical>
 

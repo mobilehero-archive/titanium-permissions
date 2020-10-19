@@ -1,8 +1,6 @@
 <alloy>
 
-	<script>
-		console.debug( '🦖  You are here → inside permission-microphone' );
-	</script>
+	<script static="true" src="./@titanium/permissions/base.js" />
 
 	<style src="../styles/app.tss">
 		".permission-title": {
@@ -27,15 +25,15 @@
 
 		<vertical width="90%">
 
-			<animation-view id="permission-microphone-lottie" module="@titanium/lottie" />
+			<animation-view id="permission-microphone-lottie" class="permission-lottie" module="@titanium/lottie" />
 
 			<label id="permission-microphone-title" class="permission-title" />
 
 			<label id="permission-microphone-ask" class="permission-ask" />
 
-			<label id="permission-microphone-go" class="permission-go" onClick="turbo.permissions.microphone.prompt" />
+			<label id="permission-microphone-go" class="permission-go" onClick="permissions.microphone.prompt" />
 
-			<label id="permission-microphone-later" class="permission-later" onClick="turbo.permissions.microphone.ignore" />
+			<label id="permission-microphone-later" class="permission-later" onClick="permissions.microphone.ignore" />
 
 		</vertical>
 

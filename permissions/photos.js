@@ -1,19 +1,21 @@
 /* eslint-disable promise/avoid-new */
-const permissionName = 'photos';
-console.debug(`📍  entering → permissions/${permissionName}`);
-const turbo = require('/turbo');
+const logger = require(`@geek/logger`).createLogger(`@titanium/permissions`, { meta: { filename: __filename } });
+
+const permissionName = `photos`;
+logger.trace(`📍  entering → permissions/${permissionName}`);
+const turbo = require(`/turbo`);
 
 const permission = {};
 module.exports = permission;
 
 permission.check = () => {
-	console.debug(`📍  entering → ${permissionName}.check()`);
+	logger.trace(`📍  entering → ${permissionName}.check()`);
 	// return OS_IOS ? Ti.Media.hasPhotoGalleryPermissions() : true;
 	return Titanium.App.iOS ? Titanium.Media.hasPhotoGalleryPermissions() : true;
 };
 
 permission.ensure = () => {
-	console.debug(`📍  entering → ${permissionName}.ensure()`);
+	logger.trace(`📍  entering → ${permissionName}.ensure()`);
 	return new Promise(
 		(resolve, reject) => {
 			const hasPermission = permission.check();
@@ -24,21 +26,21 @@ permission.ensure = () => {
 				// don't use arrow function or we lose access to this.event
 
 				turbo.events.on(`permissions::${permissionName}::accepted`, function handlePermissions(e, args) {
-					console.debug(`${permissionName} permission accepted!`);
+					logger.debug(`${permissionName} permission accepted!`);
 					turbo.events.off(`permissions::${permissionName}::accepted`, handlePermissions);
 					return resolve();
 				});
 
 				turbo.events.on(`permissions::${permissionName}::rejected`, function handlePermissions(e, args) {
-					console.debug(`${permissionName} permission rejected!`);
+					logger.debug(`${permissionName} permission rejected!`);
 					turbo.events.off(`permissions::${permissionName}::rejected`, handlePermissions);
-					return reject(Error('Permission rejected'));
+					return reject(Error(`Permission rejected`));
 				});
 
 				turbo.events.on(`permissions::${permissionName}::ignored`, function handlePermissions(e, args) {
-					console.debug(`${permissionName} permission ignored!`);
+					logger.debug(`${permissionName} permission ignored!`);
 					turbo.events.off(`permissions::${permissionName}::ignored`, handlePermissions);
-					Alloy.open('permission-ignored', { permission: permissionName });
+					Alloy.open(`permission-ignored`, { permission: permissionName });
 				});
 
 				permission.please();
@@ -48,34 +50,34 @@ permission.ensure = () => {
 };
 
 permission.please = () => {
-	console.debug(`📍  entering → ${permissionName}.please()`);
-	Alloy.close('permission-ignored');
+	logger.trace(`📍  entering → ${permissionName}.please()`);
+	Alloy.close(`permission-ignored`);
 	Alloy.open(`permission-${permissionName}`);
 };
 
 permission.ignore = () => {
-	console.debug(`📍  entering → ${permissionName}.ignore()`);
+	logger.trace(`📍  entering → ${permissionName}.ignore()`);
 	Alloy.close(`permission-${permissionName}`);
 	turbo.events.fire(`permissions::${permissionName}::ignored`);
 };
 
 permission.reject = () => {
-	console.debug(`📍  entering → ${permissionName}.reject()`);
+	logger.trace(`📍  entering → ${permissionName}.reject()`);
 	Alloy.close(`permission-${permissionName}`);
-	Alloy.close('permission-ignored');
+	Alloy.close(`permission-ignored`);
 	turbo.events.fire(`permissions::${permissionName}::rejected`);
 };
 
 permission.prompt = () => {
-	console.debug(`📍  entering → ${permissionName}.prompt()`);
+	logger.trace(`📍  entering → ${permissionName}.prompt()`);
 	return permission.native()
 		.then(success => {
-			console.debug(`native ${permissionName} permission success: ${JSON.stringify(success, null, 2)}`);
+			logger.debug(`native ${permissionName} permission success: ${JSON.stringify(success, null, 2)}`);
 			if (!success) {
-				console.debug(`emitting event → permissions::${permissionName}::rejected`);
+				logger.debug(`emitting event → permissions::${permissionName}::rejected`);
 				turbo.events.emit(`permissions::${permissionName}::rejected`);
 			} else {
-				console.debug(`emitting event → permissions::${permissionName}::accepted`);
+				logger.debug(`emitting event → permissions::${permissionName}::accepted`);
 				turbo.events.emit(`permissions::${permissionName}::accepted`);
 			}
 		})
@@ -88,12 +90,12 @@ permission.prompt = () => {
 
 
 permission.native = () => {
-	console.debug(`📍  entering → ${permissionName}.native()`);
+	logger.trace(`📍  entering → ${permissionName}.native()`);
 	return new Promise(
 		(resolve, reject) => {
 
 			const callback = e => {
-				console.debug(`📍  entering → ${permissionName}.native().callback`);
+				logger.trace(`📍  entering → ${permissionName}.native().callback`);
 				resolve(e.success);
 			};
 			Ti.Media.requestPhotoGalleryPermissions(callback);

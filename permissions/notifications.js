@@ -1,18 +1,20 @@
 /* eslint-disable promise/avoid-new */
-const permissionName = 'notifications';
-console.debug(`📍  entering → permissions/${permissionName}`);
-const turbo = require('/turbo');
+const logger = require(`@geek/logger`).createLogger(`@titanium/permissions`, { meta: { filename: __filename } });
+
+const permissionName = `notifications`;
+logger.trace(`📍  entering → permissions/${permissionName}`);
+const turbo = require(`/turbo`);
 
 const permission = {};
 module.exports = permission;
 
 permission.check = () => {
-	console.debug(`📍  entering → ${permissionName}.check()`);
+	logger.trace(`📍  entering → ${permissionName}.check()`);
 	return Titanium.App.Properties.getBool(`permission_${permissionName}`, false);
 };
 
 permission.ensure = () => {
-	console.debug(`📍  entering → ${permissionName}.ensure()`);
+	logger.trace(`📍  entering → ${permissionName}.ensure()`);
 	return new Promise(
 		(resolve, reject) => {
 			const hasPermission = permission.check();
@@ -20,24 +22,24 @@ permission.ensure = () => {
 			if (hasPermission) {
 				return resolve();
 			} else {
-				// don't use arrow function or we lose access to this.event
 
+				// don't use arrow function or we lose access to this.event
 				turbo.events.on(`permissions::${permissionName}::accepted`, function handlePermissions(e, args) {
-					console.debug(`${permissionName} permission accepted!`);
+					logger.debug(`${permissionName} permission accepted!`);
 					turbo.events.off(`permissions::${permissionName}::accepted`, handlePermissions);
 					return resolve();
 				});
 
 				turbo.events.on(`permissions::${permissionName}::rejected`, function handlePermissions(e, args) {
-					console.debug(`${permissionName} permission rejected!`);
+					logger.debug(`${permissionName} permission rejected!`);
 					turbo.events.off(`permissions::${permissionName}::rejected`, handlePermissions);
-					return reject(Error('Permission rejected'));
+					return reject(Error(`Permission rejected`));
 				});
 
 				turbo.events.on(`permissions::${permissionName}::ignored`, function handlePermissions(e, args) {
-					console.debug(`${permissionName} permission ignored!`);
+					logger.debug(`${permissionName} permission ignored!`);
 					turbo.events.off(`permissions::${permissionName}::ignored`, handlePermissions);
-					Alloy.open('permission-ignored', { permission: permissionName });
+					Alloy.open(`permission-ignored`, { permission: permissionName });
 				});
 
 				permission.please();
@@ -47,58 +49,86 @@ permission.ensure = () => {
 };
 
 permission.please = () => {
-	console.debug(`📍  entering → ${permissionName}.please()`);
-	Alloy.close('permission-ignored');
+	logger.trace(`📍  entering → ${permissionName}.please()`);
+	Alloy.close(`permission-ignored`);
 	Alloy.open(`permission-${permissionName}`);
 };
 
 permission.ignore = () => {
-	console.debug(`📍  entering → ${permissionName}.ignore()`);
+	logger.trace(`📍  entering → ${permissionName}.ignore()`);
 	Alloy.close(`permission-${permissionName}`);
 	turbo.events.fire(`permissions::${permissionName}::ignored`);
 };
 
 permission.reject = () => {
-	console.debug(`📍  entering → ${permissionName}.reject()`);
+	logger.trace(`📍  entering → ${permissionName}.reject()`);
 	Alloy.close(`permission-${permissionName}`);
-	Alloy.close('permission-ignored');
+	Alloy.close(`permission-ignored`);
 	turbo.events.fire(`permissions::${permissionName}::rejected`);
 };
 
-permission.prompt = () => {
-	console.debug(`📍  entering → ${permissionName}.prompt()`);
-	return permission.native()
-		.then(success => {
-			console.debug(`native ${permissionName} permission success: ${JSON.stringify(success, null, 2)}`);
-			if (!success) {
-				console.debug(`emitting event → permissions::${permissionName}::rejected`);
-				turbo.events.emit(`permissions::${permissionName}::rejected`);
-			} else {
-				console.debug(`emitting event → permissions::${permissionName}::accepted`);
-				turbo.events.emit(`permissions::${permissionName}::accepted`);
-				Titanium.App.Properties.setBool(`permission_${permissionName}`, true);
-			}
-		})
-		.then(() => {
-			Alloy.close(`permission-${permissionName}`);
-		});
+permission.prompt = async () => {
+	logger.trace(`📍  entering → ${permissionName}.prompt()`);
+	const success = await permission.native();
+	logger.debug(`native ${permissionName} permission success: ${JSON.stringify(success, null, 2)}`);
+
+	if (!success) {
+		logger.debug(`emitting event → permissions::${permissionName}::rejected`);
+		turbo.events.emit(`permissions::${permissionName}::rejected`);
+	} else {
+		logger.debug(`emitting event → permissions::${permissionName}::accepted`);
+		turbo.events.emit(`permissions::${permissionName}::accepted`);
+		Titanium.App.Properties.setBool(`permission_${permissionName}`, true);
+	}
+
+	Alloy.close(`permission-${permissionName}`);
 
 
 };
 
 
 permission.native = () => {
-	console.debug(`📍  entering → ${permissionName}.native()`);
+	logger.trace(`📍  entering → ${permissionName}.native()`);
 	return new Promise((resolve, reject) => {
 
 		// if (OS_IOS) {
 		if (Titanium.App.iOS) {
 			// Wait for user settings to be registered before registering for push notifications
-			Titanium.App.iOS.addEventListener('usernotificationsettings', function registerForPush() {
-				console.debug(`📍  entering → ${permissionName}.native().eventlistener`);
+			Titanium.App.iOS.addEventListener(`usernotificationsettings`, function registerForNotifications() {
+				logger.trace(`📍  entering → ${permissionName}.native().eventlistener`);
 	    		// Remove event listener once registered for push notifications
-				Titanium.App.iOS.removeEventListener('usernotificationsettings', registerForPush);
-				resolve(true);
+				Titanium.App.iOS.removeEventListener(`usernotificationsettings`, registerForNotifications);
+
+				// Register for push notifications (Ti)
+				Ti.Network.registerForPushNotifications({
+					success: (args = {}) => {
+						const { code, deviceToken, error, success, type } = args;
+						Titanium.App.Properties.setString(`deviceToken`, deviceToken);
+						resolve(true);
+					},
+					error: args => {
+						const { code: error_code, error:error_message, success, type } = args;
+						const error = {
+							message: `Error registering for push notifications`,
+							error_message,
+							error_code,
+							success,
+						};
+						logger.error(error);
+						console.warn(error);
+						turbo.tracker.error(error);
+						Alloy.Globals.aca.logHandledException(error);
+					},
+					callback: (args = {}) => {
+						const { data, inBackground } = args;
+						logger.trace(`Received iOS push notification.  inBackground:${inBackground}`);
+
+						logger.debug(`Push Notification Received`, data);
+					// Handle push message …
+					},
+				});
+
+				// resolve(true);
 			});
 
 			// Register notification types to use

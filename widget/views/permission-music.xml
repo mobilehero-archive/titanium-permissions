@@ -1,8 +1,6 @@
 <alloy>
 
-	<script>
-		console.debug( '🦖  You are here → inside permission-music' );
-	</script>
+	<script static="true" src="./@titanium/permissions/base.js" />
 
 	<style src="../styles/app.tss">
 		".permission-title": {
@@ -27,15 +25,15 @@
 
 		<vertical width="90%">
 
-			<animation-view id="permission-music-lottie" module="@titanium/lottie" />
+			<animation-view id="permission-music-lottie" class="permission-lottie" module="@titanium/lottie" />
 
 			<label id="permission-music-title" class="permission-title" />
 
 			<label id="permission-music-ask" class="permission-ask" />
 
-			<label id="permission-music-go" class="permission-go" onClick="turbo.permissions.music.prompt" />
+			<label id="permission-music-go" class="permission-go" onClick="permissions.music.prompt" />
 
-			<label id="permission-music-later" class="permission-later" onClick="turbo.permissions.music.ignore" />
+			<label id="permission-music-later" class="permission-later" onClick="permissions.music.ignore" />
 
 		</vertical>
 

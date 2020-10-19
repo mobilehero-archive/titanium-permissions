@@ -1,6 +1,6 @@
 {
 	"name": "@titanium/permissions",
-	"version": "0.0.6",
+	"version": "1.0.0",
 	"description": "Titanium native mobile widget for permission requests",
 	"keywords": [
 		"permissions",
@@ -31,22 +31,25 @@
 		"type": "git",
 		"url": "github:brentonhouse/titanium-permissions"
 	},
-	"dependencies": {
-		"@titanium/errors": ">=0.0.1"
-	},
+	"dependencies": {},
 	"devDependencies": {
-		"@titanium/eslint-config": "0.0.11",
-		"eslint": "^6.7.2",
-		"lodash": "^4.17.15"
+		"@titanium/eslint-config": "0.0.18",
+		"eslint": "^7.11.0",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-jsdoc": "^30.6.5",
+		"eslint-plugin-promise": "^4.2.1",
+		"lodash": "^4.17.20"
 	},
 	"peerDependencies": {
-		"@titanium/errors": ">=0.0.1"
+		"@titanium/errors": "latest"
 	},
 	"main": "./permissions.js",
 	"scripts": {
-		"test": "npm install --ignore-scripts && npm run list-files",
+		"prep": "npm install --ignore-scripts && npm run list-files",
+		"test": "npm run prep",
 		"list": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
-		"prepublishOnly": "git pull && bump"
+		"prepublishOnly": "git pull && bump release",
+		"lint": "eslint . --fix"
 	},
 	"titanium": {
 		"type": "widget",

@@ -1,8 +1,6 @@
 <alloy>
 
-	<script>
-		console.debug( '🦖  You are here → inside permission-location' );
-	</script>
+	<script static="true" src="./@titanium/permissions/base.js" />
 
 	<style src="../styles/app.tss">
 		".permission-title": {
@@ -27,15 +25,15 @@
 
 		<vertical width="90%">
 
-			<animation-view id="permission-location-lottie" module="@titanium/lottie" />
+			<animation-view id="permission-location-lottie" class="permission-lottie" module="@titanium/lottie" />
 
 			<label id="permission-location-title" class="permission-title" />
 
 			<label id="permission-location-ask" class="permission-ask" />
 
-			<label id="permission-location-go" class="permission-go" onClick="turbo.permissions.location.prompt" />
+			<label id="permission-location-go" class="permission-go" onClick="permissions.location.prompt" />
 
-			<label id="permission-location-later" class="permission-later" onClick="turbo.permissions.location.ignore" />
+			<label id="permission-location-later" class="permission-later" onClick="permissions.location.ignore" />
 
 		</vertical>
 

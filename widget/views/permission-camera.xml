@@ -1,8 +1,6 @@
 <alloy>
 
-	<script>
-		console.debug( '🦖  You are here → inside permission-camera' );
-	</script>
+	<script static="true" src="./@titanium/permissions/base.js" />
 
 	<style src="../styles/app.tss">
 		".permission-title": {
@@ -42,11 +40,11 @@
 
 			<label id="permission-camera-title" class="permission-title" />
 
-			<label id="permission-camera-ask" class="permission-ask permission-ask" />
+			<label id="permission-camera-ask" class="permission-ask" />
 
-			<label id="permission-camera-go" class="permission-go" onClick="turbo.permissions.camera.prompt" />
+			<label id="permission-camera-go" class="permission-go" onClick="permissions.camera.prompt" />
 
-			<label id="permission-camera-later" class="permission-later" onClick="turbo.permissions.camera.ignore" />
+			<label id="permission-camera-later" class="permission-later" onClick="permissions.camera.ignore" />
 
 		</vertical>
 
