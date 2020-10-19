@@ -45,7 +45,7 @@
 	},
 	"main": "./permissions.js",
 	"scripts": {
-		"prep": "npm install --ignore-scripts && npm run list-files",
+		"prep": "npm install --ignore-scripts && npm run list",
 		"test": "npm run prep",
 		"list": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
 		"prepublishOnly": "git pull && bump release",
