@@ -3,7 +3,7 @@ const logger = require(`@geek/logger`).createLogger(`@titanium/permissions`, { m
 
 const permissionName = `notifications`;
 logger.trace(`📍  entering → permissions/${permissionName}`);
-const turbo = require(`/turbo`);
+const events = require(`events`).default;
 
 const permission = {};
 module.exports = permission;
@@ -24,21 +24,21 @@ permission.ensure = () => {
 			} else {
 
 				// don't use arrow function or we lose access to this.event
-				turbo.events.on(`permissions::${permissionName}::accepted`, function handlePermissions(e, args) {
+				events.on(`permissions::${permissionName}::accepted`, function handlePermissions(e, args) {
 					logger.debug(`${permissionName} permission accepted!`);
-					turbo.events.off(`permissions::${permissionName}::accepted`, handlePermissions);
+					events.off(`permissions::${permissionName}::accepted`, handlePermissions);
 					return resolve();
 				});
 
-				turbo.events.on(`permissions::${permissionName}::rejected`, function handlePermissions(e, args) {
+				events.on(`permissions::${permissionName}::rejected`, function handlePermissions(e, args) {
 					logger.debug(`${permissionName} permission rejected!`);
-					turbo.events.off(`permissions::${permissionName}::rejected`, handlePermissions);
+					events.off(`permissions::${permissionName}::rejected`, handlePermissions);
 					return reject(Error(`Permission rejected`));
 				});
 
-				turbo.events.on(`permissions::${permissionName}::ignored`, function handlePermissions(e, args) {
+				events.on(`permissions::${permissionName}::ignored`, function handlePermissions(e, args) {
 					logger.debug(`${permissionName} permission ignored!`);
-					turbo.events.off(`permissions::${permissionName}::ignored`, handlePermissions);
+					events.off(`permissions::${permissionName}::ignored`, handlePermissions);
 					Alloy.open(`permission-ignored`, { permission: permissionName });
 				});
 
@@ -57,14 +57,14 @@ permission.please = () => {
 permission.ignore = () => {
 	logger.trace(`📍  entering → ${permissionName}.ignore()`);
 	Alloy.close(`permission-${permissionName}`);
-	turbo.events.fire(`permissions::${permissionName}::ignored`);
+	events.fire(`permissions::${permissionName}::ignored`);
 };
 
 permission.reject = () => {
 	logger.trace(`📍  entering → ${permissionName}.reject()`);
 	Alloy.close(`permission-${permissionName}`);
 	Alloy.close(`permission-ignored`);
-	turbo.events.fire(`permissions::${permissionName}::rejected`);
+	events.fire(`permissions::${permissionName}::rejected`);
 };
 
 permission.prompt = async () => {
@@ -74,10 +74,10 @@ permission.prompt = async () => {
 
 	if (!success) {
 		logger.debug(`emitting event → permissions::${permissionName}::rejected`);
-		turbo.events.emit(`permissions::${permissionName}::rejected`);
+		events.emit(`permissions::${permissionName}::rejected`);
 	} else {
 		logger.debug(`emitting event → permissions::${permissionName}::accepted`);
-		turbo.events.emit(`permissions::${permissionName}::accepted`);
+		events.emit(`permissions::${permissionName}::accepted`);
 		Titanium.App.Properties.setBool(`permission_${permissionName}`, true);
 	}
 

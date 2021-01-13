@@ -1,6 +1,6 @@
 {
 	"name": "@titanium/permissions",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Titanium native mobile widget for permission requests",
 	"keywords": [
 		"permissions",

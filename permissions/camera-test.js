@@ -1,8 +1,7 @@
 /* eslint-disable promise/avoid-new */
 const permissionName = `camera`;
 logger.trace(`📍  entering → permissions/${permissionName}`);
-// const turbo = require('/turbo');
-// console.error(`turbo: ${JSON.stringify(turbo, null, 2)}`);
+const events = require(`events`).default;
 
 const permission = {};
 module.exports = permission;
@@ -30,7 +29,7 @@ permission.ensure = async () => {
 	} else {
 		// don't use arrow function or we lose access to this.event
 
-		global.turbo.events.once(`permissions::${permissionName}::*`, function (e, args) {
+		events.once(`permissions::${permissionName}::*`, function (e, args) {
 			logger.debug(`${permissionName} permission event handled:  ${this.event}`);
 			switch (this.event) {
 				case `permissions::${permissionName}::accepted`:
@@ -53,21 +52,21 @@ permission.ensure = async () => {
 			return resolve();
 		});
 
-		// global.turbo.events.on(`permissions::${permissionName}::accepted`, function handlePermissions(e, args) {
+		// events.on(`permissions::${permissionName}::accepted`, function handlePermissions(e, args) {
 		// 	logger.debug(`${permissionName} permission accepted!`);
-		// 	global.turbo.events.off(`permissions::${permissionName}::accepted`, handlePermissions);
+		// 	events.off(`permissions::${permissionName}::accepted`, handlePermissions);
 		// 	return resolve();
 		// });
 
-		// global.turbo.events.on(`permissions::${permissionName}::rejected`, function handlePermissions(e, args) {
+		// events.on(`permissions::${permissionName}::rejected`, function handlePermissions(e, args) {
 		// 	logger.debug(`${permissionName} permission rejected!`);
-		// 	global.turbo.events.off(`permissions::${permissionName}::rejected`, handlePermissions);
+		// 	events.off(`permissions::${permissionName}::rejected`, handlePermissions);
 		// 	return reject(Error('Permission rejected'));
 		// });
 
-		// global.turbo.events.on(`permissions::${permissionName}::ignored`, function handlePermissions(e, args) {
+		// events.on(`permissions::${permissionName}::ignored`, function handlePermissions(e, args) {
 		// 	logger.debug(`${permissionName} permission ignored!`);
-		// 	turbo.events.off(`permissions::${permissionName}::ignored`, handlePermissions);
+		// 	events.off(`permissions::${permissionName}::ignored`, handlePermissions);
 		// 	Alloy.open('permission-ignored', { permission: permissionName });
 		// });
 
@@ -86,14 +85,14 @@ permission.please = () => {
 permission.ignore = () => {
 	logger.trace(`📍  entering → ${permissionName}.ignore()`);
 	Alloy.close(`permission-${permissionName}`);
-	global.turbo.events.fire(`permissions::${permissionName}::ignored`);
+	events.fire(`permissions::${permissionName}::ignored`);
 };
 
 permission.reject = () => {
 	logger.trace(`📍  entering → ${permissionName}.reject()`);
 	Alloy.close(`permission-${permissionName}`);
 	Alloy.close(`permission-ignored`);
-	global.turbo.events.fire(`permissions::${permissionName}::rejected`);
+	events.fire(`permissions::${permissionName}::rejected`);
 };
 
 permission.prompt = async () => {
@@ -103,10 +102,10 @@ permission.prompt = async () => {
 	logger.debug(`native ${permissionName} permission success: ${JSON.stringify(success, null, 2)}`);
 	if (!success) {
 		logger.debug(`emitting event → permissions::${permissionName}::rejected`);
-		global.turbo.events.emit(`permissions::${permissionName}::rejected`);
+		events.emit(`permissions::${permissionName}::rejected`);
 	} else {
 		logger.debug(`emitting event → permissions::${permissionName}::accepted`);
-		global.turbo.events.emit(`permissions::${permissionName}::accepted`);
+		events.emit(`permissions::${permissionName}::accepted`);
 	}
 	// })
 	// .then(() => {
