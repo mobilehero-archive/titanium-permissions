@@ -1,3 +1,30 @@
+<a href="https://brenton.house/saying-goodbye-to-axway-amplify-titanium-31a44f3671de">
+	<h1 align="center">
+	🪦 RIP Axway Amplify Titanium (2010 - 2022)
+	</h1>
+</a>
+<a href="https://brenton.house/saying-goodbye-to-axway-amplify-titanium-31a44f3671de">
+	<p align="center">
+		<img src="https://cdn.secure-api.org/images/RIP-Axway-Amplify-Titanium.png" alt="RIP Axway Amplify Titanium (2010 - 2022)" width="80%" />
+	</p>
+</a>
+<a href="https://brenton.house/saying-goodbye-to-axway-amplify-titanium-31a44f3671de">
+	<p align="center">
+		🪦 &nbsp; RIP Axway Amplify Titanium (2010 - 2022)
+	</p>
+</a>
+<p>&nbsp;</p>
+<a href="https://brenton.house/saying-goodbye-to-axway-amplify-titanium-31a44f3671de">
+	<h2 align="center">
+		🛑 This project is no longer being maintained 🛑
+	</h2>
+</a>
+<p>&nbsp;</p>
+<hr>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
 # @titanium/permissions
 
 ![GitHub stars](https://img.shields.io/github/stars/axway-developer-relations/titanium-permissions?style=social)
@@ -6,22 +33,22 @@
 [![@titanium/permissions](https://img.shields.io/npm/v/@titanium/permissions.png)](https://www.npmjs.com/package/@titanium/permissions)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=brentonhouse/titanium-permissions)](https://dependabot.com)
 
-* [📓   &nbsp; Description](#--description)
+* [📓   &nbsp; Description](#----description)
 * [🚨 &nbsp; Notice](#--notice)
-* [✨   &nbsp;  Features](#--features)
+* [✨   &nbsp;  Features](#-----features)
 	* [Prompts for device permissions](#prompts-for-device-permissions)
 	* [Styling](#styling)
-* [🚀   &nbsp; Getting Started](#--getting-started)
+* [🚀   &nbsp; Getting Started](#----getting-started)
 	* [Installing](#installing)
 	* [Usage](#usage)
-* [🎓  &nbsp;  Learn More](#--learn-more)
-	* [📚  &nbsp;  Related projects](#--related-projects)
-		* [🎟️  &nbsp; Modules for Titanium Mobile](#️--modules-for-titanium-mobile)
-		* [🎟️  &nbsp; Modules for Node.js and Titanium Mobile](#️--modules-for-nodejs-and-titanium-mobile)
-		* [🎟️  &nbsp; Modules for Node.js](#️--modules-for-nodejs)
-* [📣  &nbsp; Feedback](#--feedback)
+* [🎓  &nbsp;  Learn More](#----learn-more)
+	* [📚  &nbsp;  Related projects](#----related-projects)
+		* [🎟️  &nbsp; Modules for Titanium Mobile](#️---modules-for-titanium-mobile)
+		* [🎟️  &nbsp; Modules for Node.js and Titanium Mobile](#️---modules-for-nodejs-and-titanium-mobile)
+		* [🎟️  &nbsp; Modules for Node.js](#️---modules-for-nodejs)
+* [📣  &nbsp; Feedback](#---feedback)
 * [Follow Brenton House](#follow-brenton-house)
-* [©️  &nbsp; Legal](#️--legal)
+* [©️  &nbsp; Legal](#️---legal)
 	* [The MIT License (MIT)](#the-mit-license-mit)
 
 > Titanium native mobile widget for permission requests

@@ -1,18 +1,24 @@
 /* eslint-disable promise/avoid-new */
 const logger = require(`@geek/logger`).createLogger(`@titanium/permissions`, { meta: { filename: __filename } });
 
-const permissionName = `notifications`;
+const permissionName = `push`;
 logger.trace(`📍  entering → permissions/${permissionName}`);
 const events = require(`events`).default;
 
 const permission = {};
 module.exports = permission;
 
-permission.check = () => async {
+permission.check = () => {
 	logger.trace(`📍  entering → ${permissionName}.check()`);
-	// const result = Titanium.App.Properties.getBool(`permission_${permissionName}`, false);
 
-	const result = await turbo.hasNotificationPermissions();
+	let result;
+
+	if (Titanium.App.iOS) {
+		result = Titanium.Network.remoteNotificationsEnabled;
+		Titanium.App.Properties.setBool(`permission_${permissionName}`, result);
+	} else {
+		result = Titanium.App.Properties.getBool(`permission_${permissionName}`, false);
+	}
 
 	logger.debug(`🦠  ${permissionName}.check() = ${result}`);
 	return result;
@@ -20,15 +26,22 @@ permission.check = () => async {
 
 permission.ensure = async () => {
 	logger.trace(`📍  entering → ${permissionName}.ensure()`);
+
+	debugger;
+
+	const local_notifications_enabled = await require(`./notifications`).ensure().catch(logger.error);
+
+	if (! local_notifications_enabled) {
+		return Promise.reject(`Local notifications not enabled`);
+	}
+
 	return new Promise(
 		(resolve, reject) => {
-			const hasPermission = await permission.check();
-
-			debugger;
-
+			const hasPermission = permission.check();
 
 			if (hasPermission) {
-				return resolve(true);
+				// return resolve(true);
+				return permission.native();
 			} else {
 
 				// don't use arrow function or we lose access to this.event
@@ -80,6 +93,7 @@ permission.prompt = async () => {
 	const success = await permission.native();
 	logger.debug(`native ${permissionName} permission success: ${JSON.stringify(success, null, 2)}`);
 
+	// what about difference between error and rejection?
 	if (!success) {
 		logger.debug(`emitting event → permissions::${permissionName}::rejected`);
 		events.emit(`permissions::${permissionName}::rejected`);
@@ -91,7 +105,6 @@ permission.prompt = async () => {
 
 	Alloy.close(`permission-${permissionName}`);
 
-
 };
 
 
@@ -101,37 +114,52 @@ permission.native = () => {
 
 		// if (OS_IOS) {
 		if (Titanium.App.iOS) {
-			// Wait for user settings to be registered before registering for push notifications
-			Titanium.App.iOS.addEventListener(`usernotificationsettings`, function registerForNotifications(event = { success: false }) {
-				logger.trace(`📍  entering → ${permissionName}.native().registerForNotifications`);
-	    		// Remove event listener once registered for push notifications
-				Titanium.App.iOS.removeEventListener(`usernotificationsettings`, registerForNotifications);
 
-				logger.debug(`🦠  event: ${JSON.stringify(event, null, 2)}`);
+			// Register for push notifications (Ti)
+			Ti.Network.registerForPushNotifications({
+				success: (args = {}) => {
+					logger.trace(`📍  entering → ${permissionName}.native().success()`);
+					const { code, deviceToken, error, success, type } = args;
+					Titanium.App.Properties.setString(`deviceToken`, deviceToken);
+					Titanium.App.Properties.setBool(`permission_${permissionName}`, true);
+					resolve(true);
+				},
+				error: args => {
+					logger.trace(`📍  entering → ${permissionName}.native().error()`);
+					const { code: error_code, error:error_message, success, type } = args;
+					const error = {
+						message: `Error registering for push notifications`,
+						error_message,
+						error_code,
+						success,
+					};
+					logger.error(error);
+					// console.warn(error);
+					// turbo.tracker.error(error);
+					resolve(false);
+					// reject(Error(error));
+				},
+				callback: (args = {}) => {
+					logger.trace(`📍  entering → ${permissionName}.native().callback()`);
+					const { data, inBackground } = args;
+					logger.trace(`Received iOS push notification.  inBackground:${inBackground}`);
 
-				Titanium.App.Properties.setBool(`permission_${permissionName}`, event.success);
-				resolve(event.success);
-
-			});
-
-			// Register notification types to use
-			Titanium.App.iOS.registerUserNotificationSettings({
-				types: [
-				// Titanium.App.iOS.USER_NOTIFICATION_TYPE_NONE,
-					Titanium.App.iOS.USER_NOTIFICATION_TYPE_BADGE,
-					Titanium.App.iOS.USER_NOTIFICATION_TYPE_SOUND,
-					Titanium.App.iOS.USER_NOTIFICATION_TYPE_ALERT,
-					// Titanium.App.iOS.USER_NOTIFICATION_TYPE_CRITICAL_ALERT,
-					// Titanium.App.iOS.USER_NOTIFICATION_TYPE_PROVISIONAL,
-					// Titanium.App.iOS.USER_NOTIFICATION_TYPE_PROVIDES_APP_NOTIFICATION_SETTINGS,
-
-				],
+					logger.debug(`Push Notification Received`, data);
+					logger.debug(`🦠  data: ${JSON.stringify(data, null, 2)}`);
+					logger.error(data);
+					// Handle push message …
+				},
 			});
 		} else {
-			Titanium.App.Properties.setBool(`permission_${permissionName}`, true);
-			resolve(true);
+
+			//TODO:  Add Android push notifications
+
 		}
+
+
+		// resolve(true);
 	});
+
 };
 
 

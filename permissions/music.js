@@ -24,14 +24,14 @@ module.exports = permission;
 // 			const hasPermission = permission.check();
 
 // 			if (hasPermission) {
-// 				return resolve();
+// 				return resolve(true);
 // 			} else {
 // 				// don't use arrow function or we lose access to this.event
 
 // 				events.on(`permissions::${permissionName}::accepted`, function handlePermissions(e, args) {
 // 					logger.debug(`${permissionName} permission accepted!`);
 // 					events.off(`permissions::${permissionName}::accepted`, handlePermissions);
-// 					return resolve();
+// 					return resolve(true);
 // 				});
 
 // 				events.on(`permissions::${permissionName}::rejected`, function handlePermissions(e, args) {

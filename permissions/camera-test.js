@@ -49,13 +49,13 @@ permission.ensure = async () => {
 
 
 			}
-			return resolve();
+			return resolve(true);
 		});
 
 		// events.on(`permissions::${permissionName}::accepted`, function handlePermissions(e, args) {
 		// 	logger.debug(`${permissionName} permission accepted!`);
 		// 	events.off(`permissions::${permissionName}::accepted`, handlePermissions);
-		// 	return resolve();
+		// 	return resolve(true);
 		// });
 
 		// events.on(`permissions::${permissionName}::rejected`, function handlePermissions(e, args) {

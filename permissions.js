@@ -5,6 +5,7 @@ exports.photos = require(`./permissions/photos`);
 exports.microphone = require(`./permissions/microphone`);
 exports.music = require(`./permissions/music`);
 exports.notifications = require(`./permissions/notifications`);
+exports.push = require(`./permissions/push`);
 
 // exports.camera = require(`${__dirname}/permissions/camera`);
 // exports.location = require(`${__dirname}/permissions/location`);

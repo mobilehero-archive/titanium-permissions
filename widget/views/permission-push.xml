@@ -1,0 +1,43 @@
+<alloy>
+
+	<script static="true" src="./@titanium/permissions/base.js" />
+
+	<style src="../styles/app.tss">
+		".permission-title": {
+			"text": "Notifications"
+		}
+
+		".permission-lottie": {
+			file: "~/animations/lottie-notifications.json",
+				width: turbo.WIDTH_50,
+				height: turbo.WIDTH_50,
+				loop: true,
+				autoStart: true,
+				top: 0
+		}
+
+		".permission-ask": {
+			"text": "Could we have permission to send you push notifications in order to enable some cool features for this app?"
+		}
+	</style>
+
+	<window id="permission-push" backgroundColor="#2e3f47" layout="composite">
+
+		<vertical width="90%">
+
+			<animation-view id="permission-push-lottie" module="@titanium/lottie" class="permission-lottie" platform="ios" />
+
+			<label id="permission-push-title" class="permission-title" />
+
+			<label id="permission-push-ask" class="permission-ask" />
+
+			<label id="permission-push-go" class="permission-go" onClick="permissions.push.prompt" />
+
+			<label id="permission-push-later" class="permission-later" onClick="permissions.push.ignore" />
+
+		</vertical>
+
+	</window>
+
+
+</alloy>
