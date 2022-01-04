@@ -1,6 +1,6 @@
 {
 	"name": "@titanium/permissions",
-	"version": "1.0.9",
+	"version": "1.0.10",
 	"description": "Titanium native mobile widget for permission requests",
 	"keywords": [
 		"permissions",
@@ -52,7 +52,7 @@
 		"prep": "npm install --ignore-scripts && npm run list",
 		"test": "npm run prep",
 		"list": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
-		"prepublishOnly2": "git pull && bump release",
+		"prepublishOnly": "git pull && bump insane",
 		"postpublish2": "npm deprecate ${npm_package_name}@${npm_package_version} \"Product retired.  No longer maintained.\"",
 		"lint": "eslint . --fix"
 	},
