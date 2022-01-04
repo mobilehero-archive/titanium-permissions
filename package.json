@@ -1,6 +1,6 @@
 {
 	"name": "@titanium/permissions",
-	"version": "1.0.7",
+	"version": "1.0.8",
 	"description": "Titanium native mobile widget for permission requests",
 	"keywords": [
 		"permissions",
@@ -13,6 +13,8 @@
 		"native",
 		"appcelerator",
 		"axway-amplify",
+		"amplify",
+		"api-builder",
 		"brenton-house"
 	],
 	"author": {
