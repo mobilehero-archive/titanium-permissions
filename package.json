@@ -1,6 +1,6 @@
 {
 	"name": "@titanium/permissions",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "Titanium native mobile widget for permission requests",
 	"keywords": [
 		"permissions",
@@ -29,6 +29,7 @@
 			"url": "https://brenton.house"
 		}
 	],
+	"homepage": "https://brenton.house/saying-goodbye-to-axway-amplify-titanium-31a44f3671de",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
