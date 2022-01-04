@@ -1,6 +1,6 @@
 {
 	"name": "@titanium/permissions",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "Titanium native mobile widget for permission requests",
 	"keywords": [
 		"permissions",
@@ -12,6 +12,7 @@
 		"android",
 		"native",
 		"appcelerator",
+		"axway-amplify",
 		"brenton-house"
 	],
 	"author": {
@@ -49,7 +50,7 @@
 		"test": "npm run prep",
 		"list": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
 		"prepublishOnly2": "git pull && bump release",
-		"postpublish": "npm deprecate ${npm_package_name}@${npm_package_version} \"Product retired.  No longer maintained.\"",
+		"postpublish2": "npm deprecate ${npm_package_name}@${npm_package_version} \"Product retired.  No longer maintained.\"",
 		"lint": "eslint . --fix"
 	},
 	"titanium": {
