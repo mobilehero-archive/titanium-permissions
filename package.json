@@ -1,7 +1,7 @@
 {
 	"name": "@titanium/permissions",
-	"version": "1.0.12",
-	"description": "Titanium native mobile widget for permission requests",
+	"version": "1.0.13",
+	"description": "Axway Amplify module for permission requests for Appcelerator Titanium Mobile",
 	"keywords": [
 		"permissions",
 		"titanium",
@@ -12,9 +12,16 @@
 		"android",
 		"native",
 		"appcelerator",
-		"axway-amplify",
+		"sdk",
+		"plugin",
 		"amplify",
 		"api-builder",
+		"titanium-sdk",
+		"titanium-mobile",
+		"titanium-module",
+		"axway-sdk",
+		"axway-amplify",
+		"appcelerator-titanium",
 		"brenton-house"
 	],
 	"author": {
@@ -35,9 +42,11 @@
 		"type": "git",
 		"url": "github:brentonhouse/titanium-permissions"
 	},
-	"dependencies": {},
 	"devDependencies": {
+		"@titanium/errors": "^1.0.2",
 		"@titanium/eslint-config": "0.0.18",
+		"@titanium/essentials": "^1.0.34",
+		"@titanium/jsonc": "^0.0.9",
 		"eslint": "^7.11.0",
 		"eslint-plugin-import": "^2.22.1",
 		"eslint-plugin-jsdoc": "^30.6.5",
@@ -45,7 +54,7 @@
 		"lodash": "^4.17.21"
 	},
 	"peerDependencies": {
-		"@titanium/errors": "latest"
+		"@titanium/errors": "^1.0.2"
 	},
 	"main": "./permissions.js",
 	"scripts": {
