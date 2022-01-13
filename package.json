@@ -1,6 +1,6 @@
 {
 	"name": "@titanium/permissions",
-	"version": "1.0.28",
+	"version": "1.0.29",
 	"description": "⭐  Axway Amplify module for permission requests for Appcelerator Titanium SDK Framework",
 	"keywords": [
 		"permissions",
@@ -41,10 +41,10 @@
 		"url": "github:mobilehero-archive/titanium-permissions"
 	},
 	"devDependencies": {
-		"@titanium/errors": "^1.0.17",
-		"@titanium/eslint-config": "1.0.22",
+		"@titanium/errors": "^1.0.18",
+		"@titanium/eslint-config": "1.0.23",
 		"@titanium/essentials": "^1.0.51",
-		"@titanium/jsonc": "^1.0.18",
+		"@titanium/jsonc": "^1.0.19",
 		"eslint": "^8.6.0",
 		"eslint-plugin-import": "^2.25.4",
 		"eslint-plugin-jsdoc": "^37.6.1",
@@ -82,17 +82,17 @@
 		"@geek/spawn": "^1.0.2",
 		"@geek/spinner": "^1.0.2",
 		"@geek/tld": "^2.0.1-1",
-		"@titanium/appcelerator": "^6.0.17",
-		"@titanium/bluebird": "^3.7.22",
+		"@titanium/appcelerator": "^6.0.18",
+		"@titanium/bluebird": "^3.7.23",
 		"@titanium/events": "^1.0.30",
-		"@titanium/eventsource": "^1.0.19",
-		"@titanium/jwt": "^1.0.22",
+		"@titanium/eventsource": "^1.0.20",
+		"@titanium/jwt": "^1.0.23",
 		"@titanium/module-copier": "^1.0.25",
-		"@titanium/please": "^1.0.28",
-		"@titanium/polyfill": "^1.0.27",
-		"@titanium/querystring": "^1.0.17",
+		"@titanium/please": "^1.0.29",
+		"@titanium/polyfill": "^1.0.28",
+		"@titanium/querystring": "^1.0.18",
 		"@titanium/tiapp-xml": "^1.0.28",
 		"@titanium/titanium": "^5.4.22",
-		"@titanium/turbo": "^2.2.43"
+		"@titanium/turbo": "^2.2.44"
 	}
 }
