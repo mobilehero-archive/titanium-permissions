@@ -1,6 +1,6 @@
 {
 	"name": "@titanium/permissions",
-	"version": "1.0.35",
+	"version": "1.0.36",
 	"description": "⭐  Axway Amplify module for permission requests for Appcelerator Titanium SDK Framework",
 	"keywords": [
 		"permissions",
@@ -87,11 +87,11 @@
 		"@titanium/events": "^1.0.37",
 		"@titanium/eventsource": "^1.0.27",
 		"@titanium/jwt": "^1.0.29",
-		"@titanium/module-copier": "^1.0.33",
+		"@titanium/module-copier": "^1.0.34",
 		"@titanium/please": "^1.0.35",
 		"@titanium/polyfill": "^1.0.33",
 		"@titanium/querystring": "^1.0.25",
-		"@titanium/tiapp-xml": "^1.0.35",
+		"@titanium/tiapp-xml": "^1.0.36",
 		"@titanium/titanium": "^5.4.29",
 		"@titanium/turbo": "^2.2.51"
 	}
